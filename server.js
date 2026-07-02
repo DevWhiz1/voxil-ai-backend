@@ -1,13 +1,14 @@
+const dotenv = require('dotenv');
+// Load environment variables
+dotenv.config();
+
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const statusRoutes = require('./routes/statusRoutes');
 const contactRoutes = require('./routes/contactRoutes');
-
-// Load environment variables
-dotenv.config();
+const chatRoutes = require('./routes/chatRoutes');
 
 // Connect to MongoDB
 connectDB();
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 // Status / health route
 app.use('/api/status', statusRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Root route fallback
 app.get('/', (req, res) => {

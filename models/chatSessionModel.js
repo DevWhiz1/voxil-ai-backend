@@ -1,0 +1,35 @@
+const mongoose = require('mongoose');
+
+const messageSchema = new mongoose.Schema(
+  {
+    role: {
+      type: String,
+      enum: ['user', 'assistant', 'system'],
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const chatSessionSchema = new mongoose.Schema(
+  {
+    sessionId: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+    },
+    messages: [messageSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
+
+module.exports = mongoose.model('ChatSession', chatSessionSchema);
