@@ -41,7 +41,7 @@ const handleVapiWebhook = async (req, res) => {
           await VapiCall.findOneAndUpdate(
             { vapiCallId: callData.vapiCallId },
             { $set: callData },
-            { upsert: true, new: true }
+            { upsert: true, returnDocument: 'after' }
           );
         } else {
           // Fallback if no call ID
